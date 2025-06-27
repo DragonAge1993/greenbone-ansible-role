@@ -1,0 +1,12 @@
+---
+
+galaxy_info:
+  role_name: greenbone
+  author: Oleg Shavernev
+  min_ansible_version: ">=2.9.10"
+  license: MIT
+  standalone: true
+  platforms:
+    - name: Ubuntu
+  description: >
+    install greenbone using docker-compose and install greenbone scanner

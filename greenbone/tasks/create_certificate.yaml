@@ -1,0 +1,68 @@
+---
+
+- name: generate private key ca
+  community.crypto.openssl_privatekey:
+    path: "{{ greenbone_ca_key_path }}"
+    owner: "1001"
+    group: "1001"
+    mode: "0640"
+    size: 4096
+    type: RSA
+  no_log: "{{ not disable_no_log | default(false) }}"
+
+- name: generate ca csr
+  community.crypto.openssl_csr:
+    path: "{{ greenbone_ca_csr_path }}"
+    privatekey_path: "{{ greenbone_ca_key_path }}"
+    owner: "1001"
+    group: "1001"
+    mode: "0644"
+    common_name: "{{ greenbone_ca_csr_common_name }}"
+    basic_constraints:
+      - CA:TRUE
+    basic_constraints_critical: true
+    key_usage:
+      - keyCertSign
+      - digitalSignature
+      - cRLSign
+    key_usage_critical: true
+
+- name: generate ca certificate
+  community.crypto.x509_certificate:
+    path: "{{ greenbone_ca_cert_path }}"
+    privatekey_path: "{{ greenbone_ca_key_path }}"
+    csr_path: "{{ greenbone_ca_csr_path }}"
+    owner: "1001"
+    group: "1001"
+    mode: "0644"
+    provider: "selfsigned"
+
+- name: generate private key server
+  community.crypto.openssl_privatekey:
+    path: "{{ greenbone_server_key_path }}"
+    owner: "1001"
+    group: "1001"
+    mode: "0640"
+    size: 4096
+    type: RSA
+  no_log: "{{ not disable_no_log | default(false) }}"
+
+- name: generate server csr
+  community.crypto.openssl_csr:
+    path: "{{ greenbone_server_csr_path }}"
+    privatekey_path: "{{ greenbone_server_key_path }}"
+    common_name: "{{ greenbone_server_common_name }}"
+    owner: "1001"
+    group: "1001"
+    mode: "0644"
+
+- name: generate server certificate (with own self-signed ca)
+  community.crypto.x509_certificate:
+    path: "{{ greenbone_server_cert_path }}"
+    csr_path: "{{ greenbone_server_csr_path }}"
+    ownca_path: "{{ greenbone_ca_cert_path }}"
+    ownca_privatekey_path: "{{ greenbone_ca_key_path }}"
+    owner: "1001"
+    group: "1001"
+    mode: "0644"
+    provider: "ownca"

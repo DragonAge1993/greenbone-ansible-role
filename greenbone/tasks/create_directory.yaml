@@ -1,0 +1,16 @@
+---
+
+- name: create directory greenbone
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "0755"
+  loop:
+    - path: "{{ greenbone_directory_certs }}"
+      owner: "1001"
+      group: "1001"
+    - path: "{{ greenbone_directory_openvas_logs }}"
+    - path: "{{ greenbone_directory_openvas_conf_greenbone }}"
+    - path: "{{ greenbone_directory_all_openvas_scanners }}"

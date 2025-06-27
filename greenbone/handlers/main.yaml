@@ -1,0 +1,9 @@
+---
+
+- name: create admin credentials
+  community.docker.docker_container_exec:
+    container: greenbone-community-edition-gvmd-1
+    user: gvmd
+    command: "/usr/local/sbin/gvmd --user=admin --new-password={{ greenbone_admin_password }}"
+  when:
+    - not ansible_check_mode

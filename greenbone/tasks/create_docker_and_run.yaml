@@ -1,0 +1,19 @@
+---
+
+- name: create docker compose files
+  ansible.builtin.template:
+    src: opt/greenbone-community-edition/docker-compose.yaml.j2
+    dest: "{{ greenbone_directory_work }}/docker-compose.yaml"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  vars:
+    index: "{{ item }}"
+
+- name: run docker-compose file
+  community.docker.docker_compose_v2:
+    project_src: "{{ greenbone_directory_work }}"
+    wait_timeout: "{{ greenbone_wait_timeout_docker_compose }}"
+    state: present
+    remove_orphans: true
+  when: not ansible_check_mode

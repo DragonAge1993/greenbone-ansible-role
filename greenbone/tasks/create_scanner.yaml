@@ -1,0 +1,30 @@
+---
+
+- name: list all scanner
+  community.docker.docker_container_exec:
+    container: greenbone-community-edition-gvmd-1
+    user: gvmd
+    command: "gvmd --get-scanners"
+  register: greenbone_scanners_output
+
+- name: transforms greenbone_scanners_output list
+  ansible.builtin.set_fact:
+    greenbone_scanners_existing: >-
+      {{ greenbone_scanners_existing | default([]) + greenbone_scanners_output |
+      regex_findall('ospd_scanner_\d+') }}
+
+- name: create scanners that dont exist
+  community.docker.docker_container_exec:
+    container: greenbone-community-edition-gvmd-1
+    user: gvmd
+    command: |
+      gvmd --verbose --create-scanner=ospd_scanner_{{ item }}
+      --scanner-host=ospd-openvas-{{ item }}
+      --scanner-port=80
+      --scanner-type=OSP-Sensor
+      --scanner-ca-pub=/var/lib/gvm/CA/cacert.pem
+      --scanner-key-pub=/var/lib/gvm/CA/servercert.pem
+      --scanner-key-priv=/var/lib/gvm/CA/serverkey.pem
+  when:
+    - ('ospd_scanner_' + item|string) not in greenbone_scanners_existing
+  loop: "{{ range(1, greenbone_count_scanner_ospd + 1) | list }}"

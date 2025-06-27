@@ -1,0 +1,21 @@
+---
+
+- name: create directory
+  ansible.builtin.import_tasks: create_directory.yaml
+
+- name: create certificate
+  ansible.builtin.import_tasks: create_certificate.yaml
+  when: not ansible_check_mode
+
+- name: copy templates and config files
+  ansible.builtin.import_tasks: copy_templates_and_config_files.yaml
+
+- name: create docker compose and run docker compose
+  ansible.builtin.import_tasks: create_docker_and_run.yaml
+
+- name: create admin credentials
+  ansible.builtin.import_tasks: create_password_admin.yaml
+
+- name: create scanners
+  ansible.builtin.import_tasks: create_scanner.yaml
+  when: not ansible_check_mode

@@ -1,0 +1,55 @@
+---
+
+- name: copy script feed-sync
+  ansible.builtin.copy:
+    src: opt/greenbone-community-edition/feed-sync.sh
+    dest: "{{ greenbone_directory_work }}/feed-sync.sh"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: copy templates openvas log conf copy greenbone server copy openvas logs
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  loop:
+    - src: "opt/greenbone-community-edition/openvas/openvas_log.conf.j2"
+      dest: "{{ greenbone_directory_openvas_logs }}/openvas_log.conf"
+    - src: "opt/greenbone-community-edition/openvas/openvas-greenbone.conf.j2"
+      dest: "{{ greenbone_directory_openvas_conf_greenbone }}/openvas.conf"
+    - src: "opt/greenbone-community-edition/openvas/openvas_log.conf.j2"
+      dest: "{{ greenbone_directory_openvas_conf_greenbone }}/openvas_log.conf"
+
+- name: create dirs for scanners openvas conf
+  ansible.builtin.file:
+    path: "{{ greenbone_directory_all_openvas_scanners }}_{{ item }}"
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  loop: "{{ range(1, greenbone_count_scanner_ospd + 1) | list }}"
+
+- name: copy templates to openvas for all scanners
+  ansible.builtin.template:
+    src: opt/greenbone-community-edition/openvas/openvas-all-scanners.conf.j2
+    dest: "{{ greenbone_directory_all_openvas_scanners }}_{{ item }}/openvas.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  loop: "{{ range(1, greenbone_count_scanner_ospd + 1) | list }}"
+  vars:
+    index: "{{ item }}"
+
+- name: copy logs file for all scanners
+  ansible.builtin.copy:
+    src: "{{ greenbone_directory_openvas_logs }}/openvas_log.conf"
+    dest: "{{ greenbone_directory_all_openvas_scanners }}_{{ item }}/openvas_log.conf"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+    remote_src: true
+  loop: "{{ range(1, greenbone_count_scanner_ospd + 1) | list }}"
+  when: not ansible_check_mode

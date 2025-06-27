@@ -1,0 +1,10 @@
+---
+
+greenbone_log_sections:
+  - "sd main"
+  - "lib misc"
+  - "lib nasl"
+  - "libopenvas base"
+  - "libopenvas boreas"
+  - "libopenvas util"
+  - "*"

@@ -1,0 +1,28 @@
+---
+
+greenbone_registry: "registry.community.greenbone.net/community"
+greenbone_feed_release: "24.10"
+greenbone_gpg_data_tag: "1.1.0"
+greenbone_redis_server_tag: "1.1.0"
+greenbone_pg_gvm_tag: "22.6.9"
+greenbone_gvmd_tag: "26.0.0"
+greenbone_gsa_tag: "24.6.1"
+greenbone_openvas_scanner_tag: "23.9.0"
+greenbone_ospd_openvas_tag: "22.9.0"
+greenbone_gvm_tools_tag: "25.3.0"
+greenbone_directory_work: "/opt/greenbone-community-edition"
+greenbone_directory_certs: "/opt/greenbone-community-edition/certs"
+greenbone_directory_openvas_logs: "/opt/greenbone-community-edition/openvas_logs"
+greenbone_directory_openvas_conf_greenbone: "/opt/greenbone-community-edition/openvas"
+greenbone_directory_all_openvas_scanners: "/opt/greenbone-community-edition/openvas_conf_scanners/openvas"
+greenbone_admin_password: "admin"
+greenbone_ca_csr_common_name: "GVM Root CA"
+greenbone_ca_csr_path: "/opt/greenbone-community-edition/certs/ca.csr"
+greenbone_ca_key_path: "/opt/greenbone-community-edition/certs/cakey.pem"
+greenbone_ca_cert_path: "/opt/greenbone-community-edition/certs/cacert.pem"
+greenbone_server_common_name: "GVM Server"
+greenbone_server_key_path: "/opt/greenbone-community-edition/certs/serverkey.pem"
+greenbone_server_csr_path: "/opt/greenbone-community-edition/certs/server.csr"
+greenbone_server_cert_path: "/opt/greenbone-community-edition/certs/servercert.pem"
+greenbone_count_scanner_ospd: 1
+greenbone_wait_timeout_docker_compose: 600

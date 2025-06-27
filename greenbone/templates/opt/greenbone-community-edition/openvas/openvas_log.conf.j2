@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+
+{% for section in greenbone_log_sections %}
+[{{ section }}]
+prepend=%t %s %p
+separator=:
+prepend_time_format=%Y-%m-%d %Hh%M.%S %Z
+level=128
+{% endfor %}
