@@ -46,7 +46,7 @@ greenbone_server_cert_path: "/opt/greenbone-community-edition/certs/servercert.p
 
 ![Архитектруа в релизе 22.4](https://greenbone.github.io/docs/latest/_images/greenbone-community-22.4-architecture.png)
 
-(Ссылка на официальный источник)[https://greenbone.github.io/docs/latest/architecture.html]
+[Ссылка на официальный источник](https://greenbone.github.io/docs/latest/architecture.html)
 
 ## В рамках работы feed-sync.sh оставляем `latest` версии у следующих image: 
 
