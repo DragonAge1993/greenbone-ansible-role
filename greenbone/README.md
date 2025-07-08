@@ -11,37 +11,37 @@
 
 ## Для роли GreenBon'a необходимы следующие переменные
 
-```bash
-greenbone_registry: "registry.community.greenbone.net/community"
-greenbone_directory_work: "/opt/greenbone-community-edition"
-greenbone_directory_certs: "/opt/greenbone-community-edition/certs"
-greenbone_directory_openvas_logs: "/opt/greenbone-community-edition/openvas_logs"
-greenbone_directory_openvas_conf_greenbone: "/opt/greenbone-community-edition/openvas"
-greenbone_directory_all_openvas_scanners: "/opt/greenbone-community-edition/openvas_conf_scanners/openvas"
-greenbone_admin_password: "admin"
-greenbone_ca_csr_common_name: "GVM Root CA"
-greenbone_ca_csr_path: "/opt/greenbone-community-edition/certs/ca.csr"
-greenbone_ca_key_path: "/opt/greenbone-community-edition/certs/cakey.pem"
-greenbone_ca_cert_path: "/opt/greenbone-community-edition/certs/cacert.pem"
-greenbone_server_common_name: "GVM Server"
-greenbone_server_key_path: "/opt/greenbone-community-edition/certs/serverkey.pem"
-greenbone_server_csr_path: "/opt/greenbone-community-edition/certs/server.csr"
-greenbone_server_cert_path: "/opt/greenbone-community-edition/certs/servercert.pem"
-greenbone_count_scanner_ospd: 1
-```
+    ```bash
+    greenbone_registry: "registry.community.greenbone.net/community"
+    greenbone_directory_work: "/opt/greenbone-community-edition"
+    greenbone_directory_certs: "/opt/greenbone-community-edition/certs"
+    greenbone_directory_openvas_logs: "/opt/greenbone-community-edition/openvas_logs"
+    greenbone_directory_openvas_conf_greenbone: "/opt/greenbone-community-edition/openvas"
+    greenbone_directory_all_openvas_scanners: "/opt/greenbone-community-edition/openvas_conf_scanners/openvas"
+    greenbone_admin_password: "admin"
+    greenbone_ca_csr_common_name: "GVM Root CA"
+    greenbone_ca_csr_path: "/opt/greenbone-community-edition/certs/ca.csr"
+    greenbone_ca_key_path: "/opt/greenbone-community-edition/certs/cakey.pem"
+    greenbone_ca_cert_path: "/opt/greenbone-community-edition/certs/cacert.pem"
+    greenbone_server_common_name: "GVM Server"
+    greenbone_server_key_path: "/opt/greenbone-community-edition/certs/serverkey.pem"
+    greenbone_server_csr_path: "/opt/greenbone-community-edition/certs/server.csr"
+    greenbone_server_cert_path: "/opt/greenbone-community-edition/certs/servercert.pem"
+    greenbone_count_scanner_ospd: 1
+    ```
 
-`Ообязательным условием для работы сканеров требуются сертификаты`
+## Для роли GreenBon'a обязательным условием для работы сканеров требуются сертификаты
 
-```bash
-greenbone_ca_csr_common_name: "GVM Root CA"
-greenbone_ca_csr_path: "/opt/greenbone-community-edition/certs/ca.csr"
-greenbone_ca_key_path: "/opt/greenbone-community-edition/certs/cakey.pem"
-greenbone_ca_cert_path: "/opt/greenbone-community-edition/certs/cacert.pem"
-greenbone_server_common_name: "GVM Server"
-greenbone_server_key_path: "/opt/greenbone-community-edition/certs/serverkey.pem"
-greenbone_server_csr_path: "/opt/greenbone-community-edition/certs/server.csr"
-greenbone_server_cert_path: "/opt/greenbone-community-edition/certs/servercert.pem"
-```
+    ```bash
+    greenbone_ca_csr_common_name: "GVM Root CA"
+    greenbone_ca_csr_path: "/opt/greenbone-community-edition/certs/ca.csr"
+    greenbone_ca_key_path: "/opt/greenbone-community-edition/certs/cakey.pem"
+    greenbone_ca_cert_path: "/opt/greenbone-community-edition/certs/cacert.pem"
+    greenbone_server_common_name: "GVM Server"
+    greenbone_server_key_path: "/opt/greenbone-community-edition/certs/serverkey.pem"
+    greenbone_server_csr_path: "/opt/greenbone-community-edition/certs/server.csr"
+    greenbone_server_cert_path: "/opt/greenbone-community-edition/certs/servercert.pem"
+    ```
 
 ## Архитектруа в релизе 22.4
 
@@ -76,53 +76,53 @@ greenbone_server_cert_path: "/opt/greenbone-community-edition/certs/servercert.p
 7. ospd-openvas
 8. gvm-tools
 
+## Установка `skopeo` для поиска тегов образов
+
+### Ubuntu
+
+    ```bash
+    sudo apt install skopeo
+    ```
+
+### MacOS
+
+    ```bash
+    brew install skopeo
+    ```
+
 ## Поиск версий в artifact registry GreenBone
 
-`install skopeo`
+    ```bash
+    skopeo list-tags docker://registry.community.greenbone.net/community/gpg-data
+    ```
 
-* Ubuntu
+    ```bash
+    skopeo list-tags docker://registry.community.greenbone.net/community/redis-server
+    ```
 
-```bash
-sudo apt install skopeo
-```
+    ```bash
+    skopeo list-tags docker://registry.community.greenbone.net/community/pg-gvm
+    ```
 
-* MacOS
+    ```bash
+    skopeo list-tags docker://registry.community.greenbone.net/community/gvmd
+    ```
 
-```bash
-brew install skopeo
-```
+    ```bash
+    skopeo list-tags docker://registry.community.greenbone.net/community/gsa
+    ```
 
-```bash
-skopeo list-tags docker://registry.community.greenbone.net/community/gpg-data
-```
+    ```bash
+    skopeo list-tags docker://registry.community.greenbone.net/community/openvas-scanner
+    ```
 
-```bash
-skopeo list-tags docker://registry.community.greenbone.net/community/redis-server
-```
+    ```bash
+    skopeo list-tags docker://registry.community.greenbone.net/community/ospd-openvas
+    ```
 
-```bash
-skopeo list-tags docker://registry.community.greenbone.net/community/pg-gvm
-```
-
-```bash
-skopeo list-tags docker://registry.community.greenbone.net/community/gvmd
-```
-
-```bash
-skopeo list-tags docker://registry.community.greenbone.net/community/gsa
-```
-
-```bash
-skopeo list-tags docker://registry.community.greenbone.net/community/openvas-scanner
-```
-
-```bash
-skopeo list-tags docker://registry.community.greenbone.net/community/ospd-openvas
-```
-
-```bash
-skopeo list-tags docker://registry.community.greenbone.net/community/gvm-tools
-```
+    ```bash
+    skopeo list-tags docker://registry.community.greenbone.net/community/gvm-tools
+    ```
 
 ## Реализовано
 
@@ -132,7 +132,7 @@ skopeo list-tags docker://registry.community.greenbone.net/community/gvm-tools
 
 ## TO DO
 
-1. Не реализовано удаление сканеров из базы данных
+    # Не реализовано удаление сканеров из базы данных
 
 ```bash
 sudo docker exec -u gvmd greenbone-community-edition-gvmd-1 gvmd --delete-scanner=<scanner-uuid>
