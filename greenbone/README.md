@@ -7,10 +7,11 @@
 3. `Greenbone Security Assistant (GSA)` - веб-интерфейс, предоставляющий пользователям удобный способ управления сканированием уязвимостей и получения доступа к информации о них. 
 4. `Greenbone Community Feed` - это источник для домашних продуктов, таких как Ubuntu Linux, AVM Fritzbox, MS Office. 
 5. `Greenbone Security Manager (GSM)` - Аппаратное решение, использующее сканер OpenVAS для проверки уязвимостей. 
-`Greenbone` является одним из ведущих поставщиков решений для управления уязвимостями, и её продукты, такие как `GVM` и `OpenVAS`, широко используются для обеспечения безопасности IT-инфраструктур. 
+`Greenbone` является одним из ведущих поставщиков решений для управления уязвимостями, и её продукты, такие как `GVM` и `OpenVAS`, широко используются для обеспечения безопасности IT-инфраструктур.
 
 ## Для роли GreenBon'a необходимы следующие переменные
-```
+
+```bash
 greenbone_registry: "registry.community.greenbone.net/community"
 greenbone_directory_work: "/opt/greenbone-community-edition"
 greenbone_directory_certs: "/opt/greenbone-community-edition/certs"
@@ -31,7 +32,7 @@ greenbone_count_scanner_ospd: 1
 
 `Ообязательным условием для работы сканеров требуются сертификаты`
 
-```
+```bash
 greenbone_ca_csr_common_name: "GVM Root CA"
 greenbone_ca_csr_path: "/opt/greenbone-community-edition/certs/ca.csr"
 greenbone_ca_key_path: "/opt/greenbone-community-edition/certs/cakey.pem"
@@ -42,7 +43,7 @@ greenbone_server_csr_path: "/opt/greenbone-community-edition/certs/server.csr"
 greenbone_server_cert_path: "/opt/greenbone-community-edition/certs/servercert.pem"
 ```
 
-## Архитектруа в релизе 22.4:
+## Архитектруа в релизе 22.4
 
 ![Архитектруа в релизе 22.4](https://greenbone.github.io/docs/latest/_images/greenbone-community-22.4-architecture.png)
 
@@ -73,54 +74,53 @@ greenbone_server_cert_path: "/opt/greenbone-community-edition/certs/servercert.p
 5. gsa
 6. openvas-scanner
 7. ospd-openvas
-9. gvm-tools
-
+8. gvm-tools
 
 ## Поиск версий в artifact registry GreenBone
 
 `install skopeo`
 
-1. Ubuntu
+* Ubuntu
 
-```
+```bash
 sudo apt install skopeo
 ```
 
-2. Mac OS
+* MacOS
 
-```
+```bash
 brew install skopeo
 ```
 
-```
+```bash
 skopeo list-tags docker://registry.community.greenbone.net/community/gpg-data
 ```
 
-```
+```bash
 skopeo list-tags docker://registry.community.greenbone.net/community/redis-server
 ```
 
-```
+```bash
 skopeo list-tags docker://registry.community.greenbone.net/community/pg-gvm
 ```
 
-```
+```bash
 skopeo list-tags docker://registry.community.greenbone.net/community/gvmd
 ```
 
-```
+```bash
 skopeo list-tags docker://registry.community.greenbone.net/community/gsa
 ```
 
-```
+```bash
 skopeo list-tags docker://registry.community.greenbone.net/community/openvas-scanner
 ```
 
-```
+```bash
 skopeo list-tags docker://registry.community.greenbone.net/community/ospd-openvas
 ```
 
-```
+```bash
 skopeo list-tags docker://registry.community.greenbone.net/community/gvm-tools
 ```
 
@@ -134,7 +134,7 @@ skopeo list-tags docker://registry.community.greenbone.net/community/gvm-tools
 
 1. Не реализовано удаление сканеров из базы данных
 
-```
+```bash
 sudo docker exec -u gvmd greenbone-community-edition-gvmd-1 gvmd --delete-scanner=<scanner-uuid>
 ```
 
@@ -142,13 +142,13 @@ sudo docker exec -u gvmd greenbone-community-edition-gvmd-1 gvmd --delete-scanne
 
 1. Изначально нужно узнать UUID сканера:
 
-```
+```bash
 sudo docker exec -u gvmd greenbone-community-edition-gvmd-1 gvmd --get-scanners
 ```
 
 Затем уже можно будет удалить.
 
-```
+```bash
 sudo docker exec -u gvmd greenbone-community-edition-gvmd-1 gvmd --delete-scanner=<scanner-uuid>
 ```
 
